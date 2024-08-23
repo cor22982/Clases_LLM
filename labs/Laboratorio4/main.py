@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     result = retrieval_chain.invoke({"input": query})
 
-    print(result)
+    #print(result)
 
     template = """ Use the following pieces of context to answer the question at the end
     If you dont know the answer, just say you don't know, don't try to answer.
@@ -65,6 +65,6 @@ if __name__ == '__main__':
          RunnablePassthrough()} | custom_rag_prompt | llm
     )
     res = rag_chain.invoke(query)
-    print(res)
+    print(res.content)
 
 
