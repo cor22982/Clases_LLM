@@ -22,7 +22,7 @@ embedings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 def ingest_docs():
     #cargar la informacion que se desea consumir
-    loader = ReadTheDocsLoader(r"langchain-docs\api.python.langchain.com\en\latest", encoding='utf-8', errors='ignore')
+    loader = ReadTheDocsLoader(r"langchain-docs/api.python.langchain.com/en/latest", encoding='utf-8', errors='ignore')
     raw_documents = loader.load()
     print(f"Loaded {len(raw_documents)} raw documents")
 

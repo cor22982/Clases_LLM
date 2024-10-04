@@ -16,3 +16,6 @@ google-search-results
 python-dotenv
 pinecone
 beautifulsoup4
+streamlit
+streamlit_chat
+altair<5
