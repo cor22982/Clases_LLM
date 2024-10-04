@@ -41,9 +41,10 @@ if prompt:
         st.session_state["chat_history"].append(("ai", generated_responde["result"]))
 
     if st.session_state["chat_anwers_history"]:
-        for generated_responde, user_query in zip(st.session_state["chat_anwers_history"],st.session_state["user_prompt_history"]):
-            message(user_query, is_user=True)
-            message(formated_responde)
+        for i, (generated_responde, user_query) in enumerate(
+                zip(st.session_state["chat_anwers_history"], st.session_state["user_prompt_history"])):
+            message(user_query, is_user=True, key=f"user_{i}")
+            message(generated_responde, key=f"bot_{i}")
 
 
 
