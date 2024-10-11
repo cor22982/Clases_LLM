@@ -1,24 +1,30 @@
-# Crear ambiente
+# Video Funcionamiento
 
-crear ambiente con:
+# Que hace este proyecto?
+Lo que hace es primero almacenar toda la data del documento en una base vectorial en Pinecone.
+Despues se le hace una consulta al LLM y en base a los chumks relacionados con la informacion que se obtuvo , los consume y da una respuesta con tu historial y solo lo que se encuentre en la base vectorial
+
+# Funcionamiento
+
+# Ejecucion
+Dirigete a la carpeta del proyecto
 ```
-python -m venv nombre_del_ambiente 
+cd ASISTENTE_DOCUMENTACION
 ``` 
 
-activarlo con 
+Activa el entorno con
 ```
-.\nombre_del_ambiente\Scripts\activate
+.\asistente\Scripts\activate
 ``` 
 
 instalar las librerias con
 ```
 pip install -r requirements.txt
 ``` 
-
-
-# Que hace este proyecto?
-Lo que hace es primero almacenar toda la data del documento en una base vectorial 
-Despues se le hace una consulta al LLM y en base a los chumks relacionados con la informacion que se obtuvo , los consume y da una respuesta
+Ahora ejecuta el main usando streamlit
+```
+streamlit run main.py
+``` 
 
 
 
