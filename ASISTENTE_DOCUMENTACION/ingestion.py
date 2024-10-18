@@ -2,6 +2,9 @@ from dotenv import  load_dotenv
 load_dotenv()
 import os
 
+from firecrawl import FirecrawlApp
+from langchain.schema import Document
+
 #repartir los parrafos en diferentes chumks que tengan tama;os similares
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -19,6 +22,26 @@ from langchain_pinecone import PineconeVectorStore
 embedings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 #definir una funcion para hacer el consumo y mandarlo a nuestra base vectorial
+
+
+def ingest_url() -> None:
+    app = FirecrawlApp(api_key=os.getenv('FIRECRAWL_API_KEY'))
+    url = "https://tuscriaturas.miraheze.org/wiki/Bestiateca:Todos_los_mañanas"
+    page_content = app.scrape_url(
+        url=url,
+        params={
+            "onlyMainContent": True
+        }
+    )
+    print(page_content)
+    doc = Document(page_content=str(page_content), metadata = {"source": url})
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=200)
+    docs = text_splitter.split_documents([doc])
+
+    PineconeVectorStore.from_documents(
+        docs, embedings, index_name=os.getenv('INDEX_NAME')
+    )
+
 
 def ingest_docs():
     #cargar la informacion que se desea consumir
@@ -44,5 +67,5 @@ def ingest_docs():
     )
 
 if __name__ == "__main__":
-    ingest_docs()
+    ingest_url()
 
