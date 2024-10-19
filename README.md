@@ -1,6 +1,6 @@
 # PROYECTO 1 
 ## Video Funcionamiento
-[Link al video]()
+[Link al video](https://youtu.be/HaebMq7Qu6I)
 ## Que hace este proyecto?
 Lo que hace es primero almacenar toda la data del documento en una base vectorial en Pinecone.
 Despues se le hace una consulta al LLM y en base a los chumks relacionados con la informacion que se obtuvo , los consume y da una respuesta con tu historial y solo lo que se encuentre en la base vectorial. Esto en base a All Tomorrows, una novela de evolucion especulativa
