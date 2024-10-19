@@ -31,18 +31,21 @@ streamlit run main.py
 ## Preguntas que puedes hacer? 
 Acontinuacion se detallan una serie de preguntas que le puedes hacer al LLM 
 ojo en orden
+
 ```
 Que es all tomorrows?
-``
 ```
-Que especies humanos,posthumanos y alienigenas hay en all tomorrows
-``
 ```
 Dime la historia de all tomorrows
-``
+```
+
+```
+Que especies humanos,posthumanos y alienigenas hay en all tomorrows
+```
+
 ```
 Que le hicieron los Qu a la humanidad?
-``
+```
 ```
 Que hizo la humanidad despues de los Qu?
-``
+```
