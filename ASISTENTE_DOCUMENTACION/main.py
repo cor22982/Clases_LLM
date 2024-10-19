@@ -20,14 +20,13 @@ st.markdown(f"""
     </style>
     <div class="full-width-image"></div>
 """, unsafe_allow_html=True)
-st.title("ALL TOMORROWS BESTIARY")
-st.subheader('What is All Tomorrows')
-st.write("<p style='font-size:17px;'>All Tomorrows: A Billion Year Chronicle of the Myriad Species and Mixed Fortunes of Man is a 2006 work of science fiction and speculative evolution written and illustrated by the Turkish artist C. M. Kosemen under the pen name Nemo Ramjet. It explores a hypothetical future path of human evolution set from the near future to a billion years from the present. Several future human species evolve through natural means and through genetic engineering, conducted by both humans themselves and by a mysterious and superior alien species called the Qu.</span>", unsafe_allow_html=True)
+st.title("ALL TOMORROWS BESTIARIO")
+st.subheader('Que es All Tomorrows ?')
+st.write("<p style='font-size:17px;'>All Tomorrows: A Billion Year Chronicle of the Myriad Species and Mixed Fortunes of Man es una obra de ciencia ficción y evolución especulativa de 2006, escrita e ilustrada por el artista turco C. M. Kosemen bajo el seudónimo de Nemo Ramjet. Explora un hipotético futuro de la evolución humana, desde el futuro cercano hasta un billón de años a partir de el presente. Varias especies humanas futuras evolucionan mediante medios naturales y a través de la ingeniería genética, llevada a cabo tanto por los humanos como por una misteriosa y superior especie alienígena llamada los Qu</span>", unsafe_allow_html=True)
 
-st.subheader('Select a post human or specie in this universe')
+st.subheader('Puedes desplegar la lista y ver las especies alienigenas, tambien puedes preguntar directamente')
 
 images = [
-    'https://static.miraheze.org/intercriaturaswiki/thumb/c/cc/Marcianos_americanos_por_Nemo_Ramjet.jpg/424px-Marcianos_americanos_por_Nemo_Ramjet.jpg',
     'https://static.miraheze.org/intercriaturaswiki/thumb/d/d3/Pre-Humano_Estelar_por_Nemo_Ramjet.jpg/424px-Pre-Humano_Estelar_por_Nemo_Ramjet.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Kio7zUNn8u2yM3qLEWWu8iiSyF-NbFKj9A&s',
     'https://static.miraheze.org/intercriaturaswiki/thumb/2/28/Gusanos_por_Nemo_Ramjet.jpg/450px-Gusanos_por_Nemo_Ramjet.jpg',
@@ -39,19 +38,25 @@ images = [
 ]
 
 names = [
-    'The Martians',
-    'The Star People',
-    'The Qus',
-    'The Worms',
-    'The Titans',
-    'The Swimers',
-    'The Temptors',
-    'Colonial',
-    'The Lopsider'
+    'La gente de las estrellas',
+    'Los Qus',
+    'Los Gusanos',
+    'Los Titanes',
+    'Los Nadadores',
+    'Los Tentados o temptors',
+    'Los Coloniales',
+    'Los Ladeados'
 ]
 
 responses = [
-    'What are The Martians in all tomorrows'
+    'Quienes son la gente de las estrellas',
+    'Quienes son los Qu',
+    'Quienes son los Gusanos (posthuman especie creados por los Qus)',
+    'Quienes son los Titanes (posthuman especie creados por los Qus)',
+    'Quienes son los Nadadores (posthuman especie creados por los Qus)',
+    'Quienes son los Tentados o temptors (posthuman especie creados por los Qus)',
+    'Quienes son los Coloniales (posthuman especie creados por los Qus)',
+    'Quienes son los Ladeados (posthuman especie creados por los Qus)'
 ]
 
 # Estilos para las imágenes
@@ -73,18 +78,20 @@ num_rows = (len(images) + num_columns - 1) // num_columns  # Esto asegura que se
 prompt = st.text_input("Prompt", placeholder = "Enter your prompt here")
 
 # Recorrer las filas
-for row in range(num_rows):
-    # Crear una fila de 3 columnas
-    cols = st.columns(num_columns)
-    
-    # Recorrer las columnas y asignar imágenes y botones
-    for col in range(num_columns):
-        index = row * num_columns + col
-        if index < len(images):  # Asegura que no haya índice fuera de rango
-            with cols[col]:
-                st.markdown(f'<div class="image-cover" style="background-image: url({images[index]});"></div>', unsafe_allow_html=True)
-                if st.button(f"{names[index]}"):
-                    prompt = 'What are The Martians in all tomorrows'
+with st.expander("Seleccione una especie humana o alienígena para aprender más:"):
+    # Recorrer las filas
+    for row in range(num_rows):
+        # Crear una fila de 3 columnas
+        cols = st.columns(num_columns)
+
+        # Recorrer las columnas y asignar imágenes y botones
+        for col in range(num_columns):
+            index = row * num_columns + col
+            if index < len(images):  # Asegura que no haya índice fuera de rango
+                with cols[col]:
+                    st.markdown(f'<div class="image-cover" style="background-image: url({images[index]});"></div>', unsafe_allow_html=True)
+                    if st.button(f"{names[index]}"):
+                        prompt = responses[index]
 
 
 

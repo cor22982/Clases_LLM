@@ -20,7 +20,7 @@ from langchain_pinecone import PineconeVectorStore
 
 #creamos los embedings
 
-embedings = OpenAIEmbeddings(model="text-embedding-3-small")
+embedings = OpenAIEmbeddings(model="text-embedding-ada-002")
 
 #definir una funcion para hacer el consumo y mandarlo a nuestra base vectorial
 
@@ -28,6 +28,7 @@ embedings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 def ingest_url() -> None:
     urls_to_load = [
+        'https://tuscriaturas.miraheze.org/wiki/Bestiateca:Todos_los_mañanas',
         'https://en.wikipedia.org/wiki/All_Tomorrows',
         'https://speculativeevolution.fandom.com/wiki/All_Tomorrows',
         'https://aliens.fandom.com/wiki/Amphicephalus',
@@ -93,7 +94,7 @@ def ingest_url() -> None:
             
             # Procesar y dividir el contenido
             doc = Document(page_content=str(page_content), metadata={"source": url})
-            text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=200)
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=200)
             docs = text_splitter.split_documents([doc])
 
             # Subir documentos a Pinecone
