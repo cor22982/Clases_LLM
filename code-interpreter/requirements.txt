@@ -1,0 +1,26 @@
+qrcode
+pandas
+tabulate
+langchain == 0.2.14
+langchain-community
+langchain-core==0.2.33
+langchain-text-splitters==0.2.2
+langchain-openai
+pypdf
+faiss-cpu
+langchainhub
+langsmith
+langgraph
+langchain-pinecone
+requests
+black
+openai
+google-search-results
+python-dotenv
+pinecone
+beautifulsoup4
+streamlit
+streamlit_chat
+altair<5
+firecrawl-py
+langchain-experimental== 0.3.2
