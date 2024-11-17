@@ -32,10 +32,23 @@ def main():
 
     # necesitamos el running time para ejecutar el agente
     agent_exexutor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-    agent_exexutor.invoke(
+    #agent_exexutor.invoke(
+    #    input={
+    #        "input":""""generate and save in current working directory 2 qr codes that point to https://www.youtube.com/watch?v=dQw4w9WgXcQ you have qrcode package intalled already"""
+    #    }
+    #)
+
+    csv_agent = create_csv_agent(
+        llm=ChatOpenAI(temperature=0,model="gpt-4"),
+        path="episode_info.csv",
+        verbose=True,
+        allow_dangerous_code =True
+    )
+
+    csv_agent.invoke(
         input={
-            "input":""""generate and save in current working directory 2 qr codes that point to https://www.youtube.com/watch?v=dQw4w9WgXcQ you have qrcode package intalled already"""
-        }
+               "input":""""How many episodes did Larry David write?"""
+         }
     )
 
 
