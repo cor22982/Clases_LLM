@@ -34,7 +34,7 @@ Cual es el episodio mas visto de Breaking Bad
 Cual es el exoplaneta mas cercano a la tierra
 ```
 ```
-Si estamos en 24 de Noviembre del 2024 cuando sera el proximo eclipse, dame su Latitude,Longitude y su fecha
+Si estamos en 2024 dame una lista de los eclipses de 2025 , dame su Latitude,Longitude y su fecha
 ```
 ```
 Cual es el jugador o player con el real_time_seconds, menor entre todos, dame tambien la platform en la que jugo
