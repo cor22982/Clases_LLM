@@ -11,8 +11,20 @@ from langchain_experimental.tools import PythonREPLTool
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
 import streamlit as st
 from streamlit_chat import message
+import datetime
+import os
 
 load_dotenv()
+def save_history(question, answer):
+    with open("history.txt", "a") as f:
+        f.write(f"{datetime.datetime.now()}|{question}|{answer}\n")
+
+
+def load_history():
+    if os.path.exists("history.txt"):
+        with open("history.txt", "r") as f:
+            return f.readlines()
+    return []
 
 def interfaz ():
     st.set_page_config(page_title="Proyecto 2",
@@ -24,6 +36,9 @@ def interfaz ():
            - You are a agent design to write and execute Python code to answer questions
            - You have access to a python REPL, wich you can use to execute python code
            - If you get and error , debug your code and try again
+           - You have qr code package installed
+           - You have matplotlib package installed
+           - You have pandas package installed
            - Only use the output of your code to answer the question.
            - You might know the answer without running the code , but you should still run the code to get the answer.
            - If it does not seem like you can write code to answer the question, just return "Sorry, I don´t know" as the answer
@@ -202,48 +217,44 @@ def interfaz ():
                     st.markdown(f'<div class="image-cover" style="background-image: url({images[index]});"></div>',
                                 unsafe_allow_html=True)
                     st.text(f"{names[index]}")
+
+    try:
+        with open("history.txt", "r", encoding="latin-1") as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        st.error("El archivo 'historial.txt' no se encuentra.")
+        lines = []
+
+    # Procesa y muestra cada línea
+    if lines:
+        for line in lines:
+            # Divide la línea en fecha, pregunta y respuesta
+            try:
+                datetime, question, answer = line.strip().split("|", 2)
+                st.markdown("---")
+                st.markdown(f"**Fecha y hora:** {datetime}")
+                st.markdown(f"**Pregunta:** {question}")
+                st.markdown(f"**Respuesta:** {answer}")
+
+            except ValueError:
+                st.warning(f"Formato incorrecto en la línea: {line}")
+    else:
+        st.info("No hay datos disponibles para mostrar.")
     prompt = st.text_input("Pregunta", placeholder="Aqui haz tus preguntas de los csv")
 
-    if (
-            "chat_anwers_history" not in st.session_state and
-            "user_prompt_history" not in st.session_state and
-            "chat_history" not in st.session_state
-    ):
-        st.session_state["chat_anwers_history"] = []
-        st.session_state["user_prompt_history"] = []
-        st.session_state["chat_history"] = []
-
-    def create_sources_string(source_urls: set[str]) -> str:
-        if not source_urls:
-            return ""
-        source_list = list(source_urls)
-        source_list.sort()
-        source_string = "sources:\n"
-
-        for i, source in enumerate(source_list):
-            source_string += f"{i + 1}.{source}\n"
-        return source_string
-
     if st.button("Preguntar sobre CSV"):
-        with st.spinner("Generating responde"):
-            generated_responde = run_llm(
-                query=prompt,
-                chat_history=st.session_state["chat_history"]
+        try:
+            respuesta = grand_agent_executor.invoke(
+                {
+                    "input": prompt
+
+                }
             )
-            # en el fronted vamos a mostrar la respuesta, y otro es los lugares de donde los saco o links
-            sources = set([doc.metadata["source"] for doc in generated_responde["source"]])
-            formated_responde = f"{generated_responde['result']}\n\n{create_sources_string(sources)}"
-
-            st.session_state["user_prompt_history"].append(prompt)
-            st.session_state["chat_anwers_history"].append(formated_responde)
-            st.session_state["chat_history"].append(("human", prompt))
-            st.session_state["chat_history"].append(("ai", generated_responde["result"]))
-
-        if st.session_state["chat_anwers_history"]:
-            for i, (generated_responde, user_query) in enumerate(
-                    zip(st.session_state["chat_anwers_history"], st.session_state["user_prompt_history"])):
-                message(user_query, is_user=True, key=f"user_{i}")
-                message(generated_responde, key=f"bot_{i}")
+            st.markdown("### Respuesta del agente")
+            st.success(respuesta["output"])
+            save_history(prompt, respuesta["output"])
+        except ValueError as e:
+            st.error(f"Error en el agent: {str(e)}")
 
 
 if __name__=="__main__":
