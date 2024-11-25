@@ -155,17 +155,18 @@ def interfaz ():
     )
     if st.button("Ejecutar accion"):
         user_input = example
-        try:
-            respuesta = grand_agent_executor.invoke(
-                {
-                    "input": user_input
+        with st.spinner("Generating responde"):
+            try:
+                respuesta = grand_agent_executor.invoke(
+                    {
+                        "input": user_input
 
-                }
-            )
-            st.markdown("### Respuesta del agente")
-            st.code(respuesta["output"], language="python")
-        except ValueError as e:
-            st.error(f"Error en el agent: {str(e)}")
+                    }
+                )
+                st.markdown("### Respuesta del agente")
+                st.code(respuesta["output"], language="python")
+            except ValueError as e:
+                st.error(f"Error en el agent: {str(e)}")
 
     #agente csv
 
@@ -244,18 +245,19 @@ def interfaz ():
     prompt = st.text_input("Pregunta", placeholder="Aqui haz tus preguntas de los csv")
 
     if st.button("Preguntar sobre CSV"):
-        try:
-            respuesta = grand_agent_executor.invoke(
-                {
-                    "input": prompt
+        with st.spinner("Generating responde"):
+            try:
+                respuesta = grand_agent_executor.invoke(
+                    {
+                        "input": prompt
 
-                }
-            )
-            st.markdown("### Respuesta del agente")
-            st.success(respuesta["output"])
-            save_history(prompt, respuesta["output"])
-        except ValueError as e:
-            st.error(f"Error en el agent: {str(e)}")
+                    }
+                )
+                st.markdown("### Respuesta del agente")
+                st.success(respuesta["output"])
+                save_history(prompt, respuesta["output"])
+            except ValueError as e:
+                st.error(f"Error en el agent: {str(e)}")
 
 
 if __name__=="__main__":
