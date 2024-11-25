@@ -36,8 +36,8 @@ def interfaz ():
         unsafe_allow_html=True)
     ejemplos = [
         "Crea un juego basico de pong en pygame, dame solo el codigo",
-        "Genera una grafica gaussiana en Matplotlib y luego guarda la grafica como jpg en este directorio",
-        "Del archivo breaking-bad.csv obten las temporadas (Season) y en una grafica contrastalas con sus us-viewers usa Matplotlib y luego guarda la grafica como jpg en este directorio "
+        "Genera una grafica gaussiana en Matplotlib y luego guarda la grafica como jpg en este directorio , tambien dame el codigo que usaste",
+        "Del archivo breaking-bad.csv obten las temporadas (Season) y en una grafica contrastalas con sus us-viewers usa Matplotlib y luego guarda la grafica como jpg en este directorio , tambien dame el codigo que usaste"
     ]
 
     example = st.selectbox("Seleccione un ejemplo", ejemplos)
