@@ -1,1 +1,9 @@
-
+2024-11-24 19:19:48.510612|Cual exoplaneta es el mas cercano a la tierra|El exoplaneta mï¿½s cercano a la Tierra es Proxima Cen b.
+2024-11-24 19:26:48.830877|Cual es el episodio mas visto con mas viewers en Breaking  Bad|El episodio mï¿½s visto de Breaking Bad es "Felina".
+2024-11-24 19:30:24.416919|Cual es el eclipse solar mas antiguo registrado en el archivo|The oldest solar eclipse recorded in the file is represented by the row in the dataframe stored in the variable 'oldest_eclipse_row'.
+2024-11-24 19:30:58.470065|Cual es el eclipse solar mas antiguo|The oldest solar eclipse recorded is on December 26 of the year -1.
+2024-11-24 19:34:01.738082|Cual es el eclipse con el Calendar Date mas reciente|El eclipse con la fecha de calendario mï¿½s reciente es el que tiene el nï¿½mero de catï¿½logo 7123, que ocurriï¿½ el 12 de octubre del aï¿½o 999.
+2024-11-24 19:35:25.388922|Cual es el eclipse con el Calendar Date mas reciente al 2024|The most recent eclipse before 2024 happened on October 14, 2023.
+2024-11-24 19:37:36.666985|Si estamos en 24 de Noviembre del 2024 cuando sera el proximo eclipse, dame su Latitude,Longitude y su fecha|No hay datos disponibles sobre eclipses solares despuï¿½s del 24 de noviembre de 2024 en la base de datos proporcionada. Por lo tanto, no puedo proporcionar la fecha, latitud y longitud del prï¿½ximo eclipse despuï¿½s de esa fecha.
+2024-11-24 19:39:05.224027|Si estamos en 24 de Noviembre del 2024 cuando sera el proximo eclipse, dame su Latitude,Longitude y su fecha|El prï¿½ximo eclipse solar despuï¿½s del 24 de noviembre de 2024 ocurrirï¿½ el 29 de marzo de 2025. La latitud y longitud del eclipse serï¿½n 61.1N y 77.1W, respectivamente.
+2024-11-24 19:43:20.570703|Cual es el jugador o player con el real_time_seconds, menor entre todos, dame tambien la platform en la que jugo|El jugador con el menor tiempo en segundos reales es Suigi, y jugó en la plataforma N64.

@@ -224,7 +224,7 @@ def interfaz ():
     except FileNotFoundError:
         st.error("El archivo 'historial.txt' no se encuentra.")
         lines = []
-
+    st.subheader("Historial de conversaciones")
     # Procesa y muestra cada línea
     if lines:
         for line in lines:
@@ -240,6 +240,7 @@ def interfaz ():
                 st.warning(f"Formato incorrecto en la línea: {line}")
     else:
         st.info("No hay datos disponibles para mostrar.")
+    st.subheader("Preguntale al LLM")
     prompt = st.text_input("Pregunta", placeholder="Aqui haz tus preguntas de los csv")
 
     if st.button("Preguntar sobre CSV"):
