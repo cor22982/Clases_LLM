@@ -20,3 +20,5 @@ qrcode
 streamlit
 pandas
 tabulate
+matplotlib
+numpy
