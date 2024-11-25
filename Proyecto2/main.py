@@ -132,7 +132,7 @@ def interfaz ():
         Tool(
             name="CSV Agent Eclipse Solar",
             func=csv_agent_executor_solar.invoke,
-            description="""Useful when you need to answer questions over solar.csv file,
+            description="""Useful when you need to answer questions over solar.csv file and eclipse solars,
                    taken and input the entire question and returns the answer after running pandas calculations"""
         ),
         Tool(
