@@ -35,15 +35,122 @@ def interfaz ():
         "<p style='font-size:17px;'>Esta parte del agente realiza trabajos usando python</span>",
         unsafe_allow_html=True)
     ejemplos = [
-        "Crea un juego basico de pong en pygame",
+        "Crea un juego basico de pong en pygame, dame solo el codigo",
         "Genera una grafica gaussiana en Matplotlib y luego guarda la grafica como jpg en este directorio",
-        "Del archivo breaking_bad.csv obten las temporadas (Season) y en una grafica contrastalas con sus viewers_million usa Matplotlib y luego guarda la grafica como jpg en este directorio "
+        "Del archivo breaking-bad.csv obten las temporadas (Season) y en una grafica contrastalas con sus us-viewers usa Matplotlib y luego guarda la grafica como jpg en este directorio "
     ]
 
     example = st.selectbox("Seleccione un ejemplo", ejemplos)
 
+    # Agentes
+
+    #Agente Python
+    base_prompt = hub.pull("langchain-ai/react-agent-template")
+    prompt = base_prompt.partial(instructions=instrucciones)
+    tools = [PythonREPLTool()]
+    python_agent = create_react_agent(prompt=prompt,
+                                      llm=ChatOpenAI(temperature=0, model="gpt-4-turbo"),
+                                      tools=tools)
+    python_agent_exexutor = AgentExecutor(agent=python_agent, tools=tools, verbose=True)
+
+    #ejecutor para breaking bad
+    csv_agent_executor_bb: AgentExecutor = create_csv_agent(
+        ChatOpenAI(temperature=0, model="gpt-4"),
+        path="breaking-bad.csv",
+        verbose=True,
+        encoding='utf-8',
+        allow_dangerous_code=True
+    )
+    #ejecutor para mario
+    csv_agent_executor_mario: AgentExecutor = create_csv_agent(
+        ChatOpenAI(temperature=0, model="gpt-4"),
+        path="mario64_speedruns.csv",
+        verbose=True,
+        encoding='utf-8',
+        allow_dangerous_code=True
+    )
+    # ejecutor para solar
+    csv_agent_executor_solar: AgentExecutor = create_csv_agent(
+        ChatOpenAI(temperature=0, model="gpt-4"),
+        path="solar.csv",
+        verbose=True,
+        encoding='utf-8',
+        allow_dangerous_code=True
+    )
+    # ejecutor para exoplanets
+    csv_agent_executor_exoplanets: AgentExecutor = create_csv_agent(
+        ChatOpenAI(temperature=0, model="gpt-4"),
+        path="all_exoplanets_2021.csv",
+        verbose=True,
+        encoding='utf-8',
+        allow_dangerous_code=True
+    )
+
+    def python_Agent_executor_wrapper(original_prompt: str) -> dict[str, Any]:
+        return python_agent_exexutor.invoke(
+            {"input": original_prompt}
+        )
+
+    tools_react = [
+        Tool(
+            name="Python Agent",
+            func=python_Agent_executor_wrapper,
+            description="""
+                   useful when you need to transform natural language
+                   to python and execute python code, returning the results of the code execution
+                   DOES NOT ACCEPT CODE AS INPUT
+               """
+        ),
+        Tool(
+            name="CSV Agent Breaking Bad",
+            func=csv_agent_executor_bb.invoke,
+            description="""Useful when you need to answer questions over breaking-bad.csv file in breaking bad context,
+               taken and input the entire question and returns the answer after running pandas calculations"""
+        )
+        ,
+        Tool(
+            name="CSV Agent Spedruns Mario",
+            func=csv_agent_executor_mario.invoke,
+            description="""Useful when you need to answer questions over mario64_speedruns.csv.csv file,
+                   taken and input the entire question and returns the answer after running pandas calculations"""
+        ),
+        Tool(
+            name="CSV Agent Eclipse Solar",
+            func=csv_agent_executor_solar.invoke,
+            description="""Useful when you need to answer questions over solar.csv file,
+                   taken and input the entire question and returns the answer after running pandas calculations"""
+        ),
+        Tool(
+            name="CSV Agent All Exoplanets",
+            func=csv_agent_executor_exoplanets.invoke,
+            description="""Useful when you need to answer questions over all_exoplanets_2021.csv file,
+                   taken and input the entire question and returns the answer after running pandas calculations"""
+        )
+    ]
+    prompt = base_prompt.partial(instructions="")
+    grand_agent = create_react_agent(
+        prompt=prompt,
+        llm=ChatOpenAI(temperature=0, model="gpt-4-turbo"),
+        tools=tools_react
+    )
+    grand_agent_executor = AgentExecutor(
+        agent=grand_agent,
+        tools=tools_react,
+        verbose=True
+    )
     if st.button("Ejecutar accion"):
-        pass
+        user_input = example
+        try:
+            respuesta = grand_agent_executor.invoke(
+                {
+                    "input": user_input
+
+                }
+            )
+            st.markdown("### Respuesta del agente")
+            st.code(respuesta["output"], language="python")
+        except ValueError as e:
+            st.error(f"Error en el agent: {str(e)}")
 
     #agente csv
 
