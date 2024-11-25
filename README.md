@@ -1,11 +1,8 @@
 # PROYECTO 2 
 ## Video Funcionamiento
-[Link al video](https://youtu.be/HaebMq7Qu6I)
+[Link al video](https://www.youtube.com/watch?v=2wUPRcaNrdA)
 ## Que hace este proyecto?
 Lo que hace este proyecto es darte respuesta a tus preguntas haciendo uso de Agents, por medio de React Agent elige cual va a usar si un CSV o uno de python segun el contexto que le pasas
-
-## Funcionamiento
-
 
 ## Ejecucion
 Dirigete a la carpeta del proyecto
